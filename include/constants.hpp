@@ -4,7 +4,13 @@
 
 namespace constants
 {
-    enum command
+
+    /*!
+     *  \brief Commands that user can enter
+     *
+     *  This enum constains all commands that user can perform on the password file.
+     */
+    enum pass_command
     {
         SearchPass,
         SortPass,
@@ -17,5 +23,6 @@ namespace constants
         Exit
     };
 
-    extern std::map<std::string, command> command_map;
+    extern std::map<int, pass_command> password_command_map;
+
 }
