@@ -2,7 +2,7 @@ CC=clang++
 LDFLAGS=-lfmt
 CFLAGS=-std=c++20 -c -Wall
 
-SOURCES=constants.cpp data.cpp fileactions.cpp help.cpp uinput.cpp main.cpp
+SOURCES=constants.cpp data.cpp fileactions.cpp help.cpp uinput.cpp main.cpp password.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 SRC_DIR=src/

@@ -19,12 +19,14 @@ namespace uinput
      */
     constants::pass_command get_password_command();
 
-    void get_input(std::string &input, std::string const &message);
-    void get_input(int &input, std::string const &message);
+    void get_input(std::string &input, std::string const &message, bool required = true);
+    void get_input(int &input, std::string const &message, bool required = true);
 
     /*!
      *  funciton that gets all information about password from user and stores it in the result variable.
      */
 
     void get_password_info(std::string &result, std::vector<std::string> const &categories);
+
+    std::string get_category(std::vector<std::string> const &categories);
 }

@@ -1,6 +1,7 @@
 #include "../include/uinput.hpp"
 #include "../include/constants.hpp"
 #include "../include/help.hpp"
+#include "../include/data.hpp"
 #include <iostream>
 #include <filesystem>
 #include <vector>
@@ -36,17 +37,25 @@ constants::pass_command uinput::get_password_command()
     return command;
 }
 
-void uinput::get_input(std::string &input, std::string const &message)
+void uinput::get_input(std::string &input, std::string const &message, bool required)
 {
     std::cout << message << std::endl;
     std::getline(std::cin, input);
+    if (required && input.empty())
+    {
+        uinput::get_input(input, message, required);
+    }
 }
 
-void uinput::get_input(int &input, std::string const &message)
+void uinput::get_input(int &input, std::string const &message, bool required)
 {
     std::cout << message << std::endl;
     std::cin >> input;
     std::cin.ignore();
+    if (required && input == 0)
+    {
+        uinput::get_input(input, message, required);
+    }
 }
 
 std::filesystem::path uinput::get_file_path()
@@ -63,18 +72,24 @@ void uinput::get_password_info(std::string &result, std::vector<std::string> con
     std::string category;
     std::string service;
     std::string login;
-    uinput::get_input(name, "Enter name for the password: ");
-    uinput::get_input(password, "Enter password: ");
+    uinput::get_input(name, "Enter name for the password(Required): ", true);
+    uinput::get_input(password, "Enter password(Required): ", true);
+    category = uinput::get_category(categories);
+    uinput::get_input(service, "Enter service: ", false);
+    uinput::get_input(login, "Enter login: ", false);
+    result = name + constants::fdelim +
+             password + constants::fdelim +
+             category + constants::fdelim +
+             service + constants::fdelim + login;
+}
+
+std::string uinput::get_category(std::vector<std::string> const &categories)
+{
+    int index = -1;
+    while (!help::number_between(index, 0, categories.size() - 1))
     {
-        int index = -1;
-        while (!help::number_between(index, 0, categories.size() - 1))
-        {
-            help::printWithIndices(categories);
-            uinput::get_input(index, "Enter category(number): ");
-        };
-        category = categories[index];
-    }
-    uinput::get_input(service, "Enter service: ");
-    uinput::get_input(login, "Enter login: ");
-    result = fmt::format("{}\t{}\t{}\t{}\t{}", name, password, category, service, login);
+        help::printWithIndices(categories);
+        uinput::get_input(index, "Enter category(Required): ");
+    };
+    return categories[index];
 }
