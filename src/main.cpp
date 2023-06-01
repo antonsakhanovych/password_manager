@@ -44,6 +44,7 @@ int main()
             uinput::get_password_info(toWrite, categories);
             fileactions::add_pass(path, toWrite, master_password);
             toWrite.clear();
+            all_passwords.clear();
             break;
         case constants::pass_command::EditPass:
             fileactions::edit_pass(path, master_password);

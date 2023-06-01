@@ -84,13 +84,10 @@ void fileactions::write_time(std::filesystem::path const &path)
     int hours = localTime->tm_hour;
     int minutes = localTime->tm_min;
     int seconds = localTime->tm_sec;
-    std::string time = fmt::format("Last login attempt: {:2}:{:2}:{:2}", hours, minutes, seconds);
+    std::string time = fmt::format("Last login attempt: {}:{}:{}", hours, minutes, seconds);
 
     tmp << time << '\n';
-    while (std::getline(fs, line, '\n'))
-    {
-        tmp << line;
-    }
+    tmp << fs.rdbuf();
     fs.close();
     tmp.close();
     std::filesystem::remove(path);

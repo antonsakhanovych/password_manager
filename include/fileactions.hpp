@@ -2,8 +2,8 @@
 #include "../include/password.hpp"
 #include <iostream>
 #include <filesystem>
-#include <fstream>
 #include <vector>
+#include <memory>
 
 namespace fileactions
 {
