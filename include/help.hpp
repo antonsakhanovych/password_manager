@@ -1,14 +1,19 @@
 #pragma once
+#include "password.hpp"
+#include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+#include <algorithm>
 
 namespace help
 {
     bool number_between(int number, int lower, int upper);
 
-    void get_input(std::string &input, std::string const &message);
-    void get_input(int &input, std::string const &message);
+    template <typename T>
+    void print_map(std::map<T, std::string> const &map);
 
     template <typename T>
-    void printWithIndices(std::vector<T> const &vec);
+    void print_vector(std::vector<T> const &vector);
+
 }

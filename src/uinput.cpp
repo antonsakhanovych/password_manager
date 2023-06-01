@@ -10,30 +10,10 @@
 
 constants::pass_command uinput::get_password_command()
 {
-    std::cout << R"(
-    1 - to search password
-    2 - to get sorted list of all passwords
-    3 - to add new password
-    4 - to edit existing password
-    5 - to delete password
-    6 - to add category 
-    7 - to delete category
-    8 - to exit
-    )";
-
+    help::print_map(constants::all_password_commands);
     int input;
-    std::cin >> input;
-    std::cin.ignore();
-    constants::pass_command command;
-    if (constants::password_command_map.find(input) == constants::password_command_map.end())
-    {
-        command = constants::pass_command::None;
-    }
-    else
-    {
-        command = constants::password_command_map[input];
-    }
-
+    uinput::get_input(input, "Enter command: ", true);
+    constants::pass_command command = static_cast<constants::pass_command>(input);
     return command;
 }
 
@@ -55,6 +35,25 @@ void uinput::get_input(int &input, std::string const &message, bool required)
     if (required && input == 0)
     {
         uinput::get_input(input, message, required);
+    }
+}
+
+template constants::pass_command uinput::get_input(std::map<constants::pass_command, std::string> const &map);
+template constants::criteria uinput::get_input(std::map<constants::criteria, std::string> const &map);
+
+template <typename T>
+T uinput::get_input(std::map<T, std::string> const &map)
+{
+    int input;
+    help::print_map(map);
+    uinput::get_input(input, "Enter: ", true);
+    if (help::number_between(input, 1, map.size()))
+    {
+        return static_cast<T>(input);
+    }
+    else
+    {
+        return uinput::get_input(map);
     }
 }
 
@@ -88,7 +87,7 @@ std::string uinput::get_category(std::vector<std::string> const &categories)
     int index = -1;
     while (!help::number_between(index, 0, categories.size() - 1))
     {
-        help::printWithIndices(categories);
+        help::print_vector(categories);
         uinput::get_input(index, "Enter category(Required): ");
     };
     return categories[index];

@@ -6,31 +6,78 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <filesystem>
 
-pass::Password::Password(std::string const &data) : data(data)
+Password::Password(std::string const &data)
 {
     int count = std::count(data.begin(), data.end(), constants::fdelim);
     if (count != 4)
     {
-        throw std::invalid_argument("Record is malformed. Your might be typed your master password wrong!");
+        throw std::runtime_error("password to decrypt data is invalid.");
     }
     data::split_record(data, name, password, category, service, login);
 }
 
-pass::Password::~Password() {}
+Password::Password(std::string const &name, std::string const &password, std::string const &category, std::string const &service, std::string const &login)
+    : name(name), password(password), category(category), service(service), login(login) {}
 
-std::string pass::Password::get_name() const
-{
-    return this->name;
-};
+Password::~Password() {}
 
-std::ostream &pass::operator<<(std::ostream &os, pass::Password const &pass)
+std::string Password::toString(std::string delimiter) const
 {
-    os << pass.name << " - " << pass.password << " - " << pass.category << " - " << pass.service << " - " << pass.login;
+    std::string toWrite = name + delimiter +
+                          password + delimiter +
+                          category + delimiter +
+                          service + delimiter + login;
+    return toWrite;
+}
+
+std::ostream &operator<<(std::ostream &os, std::unique_ptr<Password> const &pass)
+{
+    os << pass->toString(" - ") << std::endl;
     return os;
 };
 
-bool pass::Password::is_match(std::string const &search) const
+bool Password::is_match(std::string const &search, constants::criteria criteria) const
 {
-    return this->data.find(search) != std::string::npos;
+    std::string const *field = this->get_field_by_criteria(criteria);
+    return (*field).find(search) != std::string::npos;
+}
+
+std::string const *Password::get_field_by_criteria(constants::criteria criteria) const
+{
+    std::string const *field;
+    switch (criteria)
+    {
+    case constants::criteria::Name:
+        field = &this->name;
+        break;
+    case constants::criteria::Username:
+        field = &this->login;
+        break;
+    case constants::criteria::Password:
+        field = &this->password;
+        break;
+    case constants::criteria::Category:
+        field = &this->category;
+        break;
+    case constants::criteria::Login:
+        field = &this->login;
+        break;
+    }
+    return field;
+}
+
+bool Password::compare(Password const &p1, Password const &p2, constants::criteria criteria1, constants::criteria criteria2)
+{
+    std::string const *field1;
+    std::string const *field2;
+    field1 = p1.get_field_by_criteria(criteria1);
+    field2 = p2.get_field_by_criteria(criteria1);
+    if (*field1 != *field2)
+        return *field1 < *field2;
+
+    field1 = p1.get_field_by_criteria(criteria2);
+    field2 = p2.get_field_by_criteria(criteria2);
+    return *field1 < *field2;
 }

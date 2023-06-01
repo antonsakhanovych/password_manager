@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <vector>
 
 namespace constants
 {
@@ -12,18 +13,18 @@ namespace constants
      */
     enum class pass_command
     {
-        SearchPass,
+        SearchPass = 1,
         SortPass,
         AddPass,
         EditPass,
         DeletePass,
         AddCat,
         DeleteCat,
+        Exit,
         None,
-        Exit
     };
 
-    extern std::map<int, pass_command> password_command_map;
+    extern std::map<pass_command, std::string> all_password_commands;
 
     extern char fdelim;
 
@@ -31,13 +32,13 @@ namespace constants
 
     enum class criteria
     {
-        Name,
+        Name = 1,
         Username,
         Password,
         Category,
         Login,
     };
 
-    extern std::map<int, criteria> criteria_map;
+    extern std::map<criteria, std::string> all_criterias;
 
 }
