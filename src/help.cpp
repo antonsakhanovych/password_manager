@@ -1,15 +1,4 @@
 #include "../include/help.hpp"
-#include "../include/constants.hpp"
-#include "../include/password.hpp"
-#include <fmt/core.h>
-#include <iostream>
-#include <algorithm>
-#include <ranges>
-#include <string>
-#include <filesystem>
-#include <vector>
-#include <fstream>
-#include <set>
 
 template void help::print_map<constants::pass_command>(std::map<constants::pass_command, std::string> const &map);
 template void help::print_map<constants::criteria>(std::map<constants::criteria, std::string> const &map);

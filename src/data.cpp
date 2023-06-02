@@ -1,10 +1,7 @@
 #include "../include/data.hpp"
 #include "../include/constants.hpp"
-#include <string>
-#include <vector>
 #include <iostream>
 #include <sstream>
-#include <algorithm>
 
 void data::xorTransform(std::string &toTransform, std::string const &key)
 {

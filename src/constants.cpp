@@ -1,5 +1,4 @@
 #include "../include/constants.hpp"
-#include <string>
 
 std::map<constants::pass_command, std::string> constants::all_password_commands = {
     {constants::pass_command::SearchPass, "to search for password"},

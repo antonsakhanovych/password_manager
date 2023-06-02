@@ -1,11 +1,5 @@
 #include "../include/uinput.hpp"
-#include "../include/constants.hpp"
 #include "../include/fileactions.hpp"
-#include "../include/data.hpp"
-#include <iostream>
-#include <filesystem>
-#include <fstream>
-#include <vector>
 
 int main()
 {

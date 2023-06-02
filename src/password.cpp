@@ -1,12 +1,7 @@
 #include "../include/password.hpp"
-#include "../include/constants.hpp"
 #include "../include/data.hpp"
-#include <iostream>
-#include <string>
 #include <algorithm>
-#include <vector>
-#include <sstream>
-#include <filesystem>
+
 
 Password::Password(std::string const &data)
 {

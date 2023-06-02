@@ -1,13 +1,5 @@
 #include "../include/uinput.hpp"
-#include "../include/constants.hpp"
 #include "../include/help.hpp"
-#include "../include/data.hpp"
-#include "../include/password.hpp"
-#include <iostream>
-#include <filesystem>
-#include <vector>
-#include <string>
-#include <fmt/core.h>
 
 constants::pass_command uinput::get_password_command()
 {
