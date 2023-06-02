@@ -30,6 +30,8 @@ namespace uinput
     template <typename T>
     T get_input(std::map<T, std::string> const &map);
 
+    void get_input(int &input, std::string const &message, bool required, int max_value);
+
     /*!
      *  funciton that gets all information about password from user and stores it in the result variable.
      */

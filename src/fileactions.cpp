@@ -77,7 +77,7 @@ void fileactions::edit_password(std::filesystem::path const &path, std::string c
     fileactions::get_all_passwords(path, master_password, all_passwords);
     help::print_vector(all_passwords);
     int index;
-    uinput::get_input(index, "Enter index of password to edit: ");
+    uinput::get_input(index, "Enter index of password to edit: ", true, all_passwords.size() - 1);
     std::unique_ptr<Password> &password_to_edit = all_passwords[index];
     fileactions::traverse_file(path, master_password,
                                [&password_to_edit, &master_password](std::fstream &ofs, std::unique_ptr<Password> &password, std::string &line, char delimiter)
@@ -113,7 +113,7 @@ void fileactions::delete_many(std::filesystem::path const &path, std::string con
     fileactions::get_all_passwords(path, master_password, all_passwords);
     help::print_vector(all_passwords);
     int index;
-    uinput::get_input(index, "Enter index of password to delete: ");
+    uinput::get_input(index, "Enter index of password to delete: ", true, all_passwords.size() - 1);
     std::unique_ptr<Password> const &password_to_del = all_passwords[index];
     fileactions::delete_one(path, master_password, password_to_del);
 

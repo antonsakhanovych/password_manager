@@ -43,6 +43,17 @@ void uinput::get_input(T &input, std::string const &message, bool required)
     }
 }
 
+void uinput::get_input(int &input, std::string const &message, bool required, int max_value)
+{
+    std::cout << message << std::endl;
+    std::cin >> input;
+    std::cin.ignore();
+    if ((required && input < 0) || input > max_value)
+    {
+        uinput::get_input(input, message, required, max_value);
+    }
+}
+
 template constants::pass_command uinput::get_input(std::map<constants::pass_command, std::string> const &map);
 template constants::criteria uinput::get_input(std::map<constants::criteria, std::string> const &map);
 

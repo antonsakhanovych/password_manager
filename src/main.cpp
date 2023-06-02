@@ -40,6 +40,10 @@ int main()
         }
     }
 
+    std::sort(categories.begin(), categories.end());
+    auto last = std::unique(categories.begin(), categories.end());
+    categories.erase(last, categories.end());
+
     while (pass_command != constants::pass_command::Exit)
     {
         pass_command = uinput::get_password_command();
