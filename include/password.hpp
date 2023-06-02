@@ -18,6 +18,8 @@ public:
     ~Password();
     std::string toString(std::string delimiter) const;
     friend std::ostream &operator<<(std::ostream &os, std::unique_ptr<Password> const &pass);
+    bool operator==(Password const &other) const;
+    bool operator!=(Password const &other) const;
     bool is_match(std::string const &search, constants::criteria criteria) const;
     std::string const *get_field_by_criteria(constants::criteria criteria) const;
     static bool compare(Password const &p1, Password const &p2, constants::criteria criteria1, constants::criteria criteria2);

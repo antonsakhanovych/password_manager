@@ -1,4 +1,6 @@
 #pragma once
+
+#include "password.hpp"
 #include "constants.hpp"
 #include <string>
 #include <filesystem>
@@ -21,7 +23,9 @@ namespace uinput
     constants::pass_command get_password_command();
 
     void get_input(std::string &input, std::string const &message, bool required = true);
-    void get_input(int &input, std::string const &message, bool required = true);
+
+    template <typename T>
+    void get_input(T &input, std::string const &message, bool required = true);
 
     template <typename T>
     T get_input(std::map<T, std::string> const &map);
@@ -33,5 +37,7 @@ namespace uinput
     void get_password_info(std::string &result, std::vector<std::string> const &categories);
 
     std::string get_category(std::vector<std::string> const &categories);
+
+    void edit_p_instance(std::unique_ptr<Password> &password);
 
 }

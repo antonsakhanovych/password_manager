@@ -24,33 +24,33 @@ int main()
 
     while (pass_command != constants::pass_command::Exit)
     {
-        fileactions::get_all_passwords(path, master_password, all_passwords);
-
         pass_command = uinput::get_password_command();
         std::string toWrite;
         switch (pass_command)
         {
         case constants::pass_command::SearchPass:
-            fileactions::search_pass(all_passwords);
+            fileactions::get_all_passwords(path, master_password, all_passwords);
+            fileactions::search_password(all_passwords);
             all_passwords.clear();
             break;
 
         case constants::pass_command::SortPass:
-
-            fileactions::sort_pass(all_passwords);
+            fileactions::get_all_passwords(path, master_password, all_passwords);
+            fileactions::sort_password(all_passwords);
             all_passwords.clear();
             break;
         case constants::pass_command::AddPass:
             uinput::get_password_info(toWrite, categories);
-            fileactions::add_pass(path, toWrite, master_password);
+            fileactions::add_password(path, toWrite, master_password);
             toWrite.clear();
             all_passwords.clear();
             break;
         case constants::pass_command::EditPass:
-            fileactions::edit_pass(path, master_password);
+            fileactions::edit_password(path, master_password);
             break;
         case constants::pass_command::DeletePass:
-            fileactions::delete_pass(path, master_password);
+            fileactions::delete_many(path, master_password);
+            all_passwords.clear();
             break;
         case constants::pass_command::AddCat:
             break;

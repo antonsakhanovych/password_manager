@@ -2,6 +2,7 @@
 #include "../include/constants.hpp"
 #include "../include/help.hpp"
 #include "../include/data.hpp"
+#include "../include/password.hpp"
 #include <iostream>
 #include <filesystem>
 #include <vector>
@@ -27,12 +28,16 @@ void uinput::get_input(std::string &input, std::string const &message, bool requ
     }
 }
 
-void uinput::get_input(int &input, std::string const &message, bool required)
+template void uinput::get_input<char>(char &input, std::string const &message, bool required);
+template void uinput::get_input<int>(int &input, std::string const &message, bool required);
+
+template <typename T>
+void uinput::get_input(T &input, std::string const &message, bool required)
 {
     std::cout << message << std::endl;
     std::cin >> input;
     std::cin.ignore();
-    if (required && input == 0)
+    if (required && input < 0)
     {
         uinput::get_input(input, message, required);
     }
@@ -91,4 +96,21 @@ std::string uinput::get_category(std::vector<std::string> const &categories)
         uinput::get_input(index, "Enter category(Required): ");
     };
     return categories[index];
+}
+
+void uinput::edit_p_instance(std::unique_ptr<Password> &password_to_edit)
+{
+    std::cout << "What do you want to edit?" << std::endl;
+    constants::criteria criteria = uinput::get_input(constants::all_criterias);
+    std::string *field = const_cast<std::string *>(password_to_edit->get_field_by_criteria(criteria));
+    std::string new_value;
+    uinput::get_input(new_value, "Enter new value: ");
+    *field = new_value;
+    std::cout << "Want to continue?" << std::endl;
+    char answer;
+    uinput::get_input(answer, "Enter y/n: ");
+    if (answer == 'y')
+    {
+        uinput::edit_p_instance(password_to_edit);
+    }
 }

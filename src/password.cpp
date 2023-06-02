@@ -38,6 +38,20 @@ std::ostream &operator<<(std::ostream &os, std::unique_ptr<Password> const &pass
     return os;
 };
 
+bool Password::operator==(Password const &other) const
+{
+    return this->name == other.name &&
+           this->password == other.password &&
+           this->category == other.category &&
+           this->service == other.service &&
+           this->login == other.login;
+}
+
+bool Password::operator!=(Password const &other) const
+{
+    return !(*this == other);
+}
+
 bool Password::is_match(std::string const &search, constants::criteria criteria) const
 {
     std::string const *field = this->get_field_by_criteria(criteria);
