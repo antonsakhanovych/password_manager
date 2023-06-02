@@ -127,6 +127,19 @@ void fileactions::delete_many(std::filesystem::path const &path, std::string con
     }
 }
 
+void fileactions::delete_category(std::filesystem::path const &path, std::string const &master_password, std::string const &category)
+{
+    std::vector<std::unique_ptr<Password>> all_passwords;
+    fileactions::get_all_passwords(path, master_password, all_passwords);
+    fileactions::traverse_file(path, master_password, [&category, &master_password](std::fstream &ofs, std::unique_ptr<Password> &password, std::string &line, char delimiter)
+                               {
+        if (*password->get_field_by_criteria(constants::criteria::Category) != category)
+        {
+            data::xorTransform(line, master_password);
+            ofs << line << delimiter;
+        } });
+}
+
 void fileactions::create_file_if_not_exist(std::filesystem::path const &path)
 {
     if (!std::filesystem::exists(path))

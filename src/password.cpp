@@ -13,7 +13,7 @@ Password::Password(std::string const &data)
     int count = std::count(data.begin(), data.end(), constants::fdelim);
     if (count != 4)
     {
-        throw std::runtime_error("password to decrypt data is invalid.");
+        throw MalformedPassword();
     }
     data::split_record(data, name, password, category, service, login);
 }
@@ -66,8 +66,8 @@ std::string const *Password::get_field_by_criteria(constants::criteria criteria)
     case constants::criteria::Name:
         field = &this->name;
         break;
-    case constants::criteria::Username:
-        field = &this->login;
+    case constants::criteria::Service:
+        field = &this->service;
         break;
     case constants::criteria::Password:
         field = &this->password;
@@ -94,4 +94,9 @@ bool Password::compare(Password const &p1, Password const &p2, constants::criter
     field1 = p1.get_field_by_criteria(criteria2);
     field2 = p2.get_field_by_criteria(criteria2);
     return *field1 < *field2;
+}
+
+const char *MalformedPassword::what() const noexcept
+{
+    return "Malformed password!";
 }

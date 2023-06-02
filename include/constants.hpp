@@ -33,9 +33,9 @@ namespace constants
     enum class criteria
     {
         Name = 1,
-        Username,
         Password,
         Category,
+        Service,
         Login,
     };
 

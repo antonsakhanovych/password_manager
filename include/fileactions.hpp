@@ -17,4 +17,5 @@ namespace fileactions
     void delete_one(std::filesystem::path const &path, std::string const &master_password, std::unique_ptr<Password> const &password);
     void delete_many(std::filesystem::path const &path, std::string const &master_password);
     void traverse_file(std::filesystem::path const &path, std::string const &master_password, std::function<void(std::fstream &, std::unique_ptr<Password> &, std::string &, char delimiter)> func);
+    void delete_category(std::filesystem::path const &path, std::string const &master_password, std::string const &category);
 }

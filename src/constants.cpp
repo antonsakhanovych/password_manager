@@ -19,8 +19,8 @@ char constants::get_record_delimiter(std::string const &master_password)
 }
 
 std::map<constants::criteria, std::string> constants::all_criterias = {
-    {constants::criteria::Name, "by name"},
-    {constants::criteria::Username, "by username"},
-    {constants::criteria::Password, "by password"},
-    {constants::criteria::Category, "by category"},
-    {constants::criteria::Login, "by login"}};
+    {constants::criteria::Name, "name"},
+    {constants::criteria::Password, "password"},
+    {constants::criteria::Category, "category"},
+    {constants::criteria::Service, "service"},
+    {constants::criteria::Login, "login"}};

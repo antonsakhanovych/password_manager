@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <vector>
 #include <fstream>
+#include <set>
 
 template void help::print_map<constants::pass_command>(std::map<constants::pass_command, std::string> const &map);
 template void help::print_map<constants::criteria>(std::map<constants::criteria, std::string> const &map);
@@ -26,6 +27,8 @@ void help::print_map(std::map<T, std::string> const &map)
 
 template void help::print_vector<std::string>(std::vector<std::string> const &vector);
 
+template void help::print_vector<std::unique_ptr<Password>>(std::vector<std::unique_ptr<Password>> const &vector);
+
 template <typename T>
 void help::print_vector(std::vector<T> const &vector)
 {
@@ -36,8 +39,6 @@ void help::print_vector(std::vector<T> const &vector)
     }
     std::cout << std::endl;
 }
-
-template void help::print_vector<std::unique_ptr<Password>>(std::vector<std::unique_ptr<Password>> const &vector);
 
 bool help::number_between(int number, int lower, int upper)
 {

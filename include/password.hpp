@@ -24,3 +24,9 @@ public:
     std::string const *get_field_by_criteria(constants::criteria criteria) const;
     static bool compare(Password const &p1, Password const &p2, constants::criteria criteria1, constants::criteria criteria2);
 };
+
+class MalformedPassword : std::exception
+{
+public:
+    const char *what() const noexcept;
+};
