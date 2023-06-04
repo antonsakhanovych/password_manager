@@ -27,4 +27,4 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INC_DIR)%.hpp | $(BUILD_DIR) $(INC_DIR)
 
 
 clean: | $(BUILD_DIR)
-	rm $(BUILD_DIR)*
+	rm $(BUILD_DIR)*.o
