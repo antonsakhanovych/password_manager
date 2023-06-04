@@ -22,7 +22,8 @@ $(BUILD_DIR)main.o: $(SRC_DIR)main.cpp
 $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INC_DIR)%.hpp | $(BUILD_DIR) $(INC_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
-
+$(BUILD_DIR):
+	mkdir $@
 
 
 
