@@ -5,25 +5,26 @@ This course covers topics like pointers, references, operator overloading, inher
 
 ## Compilation
 ```bash
-	# copy this github repository
-	git clone https://github.com/antonsakhanovych/password_manager.git
+# copy this github repository
+git clone https://github.com/antonsakhanovych/password_manager.git
 
-	# cd into the directory
-	cd password_manager
+# cd into the directory
+cd password_manager
 
-	# compile the program
-	make main
+# compile the program
+make main
 
-	# start by running:
-	./build/main
+# start by running:
+./build/main
 ```
 	
-	There is a pass file available for you to test the program.
+There is a pass file available for you to test the program.
 
 ```bash
-	# to clean the build you can type
-	make clean
+# to clean the build you can type
+make clean
 ```
+
 	
 ## Features
 
